@@ -45,5 +45,26 @@ namespace API_Kylosov.Controllers
                 return StatusCode(500, exp.Message);
             }
         }
+
+        [Route("Add")]
+        [HttpPut]
+        [ApiExplorerSettings(GroupName = "v3")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(500)]
+        public ActionResult Add([FromForm]Tasks task)
+        {
+            try
+            {
+                TasksContext tasksContext = new TasksContext();
+                tasksContext.Tasks.Add(task);
+                tasksContext.SaveChanges();
+
+                return StatusCode(200);
+            }
+            catch (Exception exp)
+            {
+                return StatusCode(500, exp.Message);
+            }
+        }
     }
 }
