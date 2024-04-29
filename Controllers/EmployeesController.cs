@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 namespace API_Kylosov.Controllers
 {
     [Route("api/EmployeesController")]
+    [ApiExplorerSettings(GroupName = "v1")]
     public class EmployeesController : Controller
     {
 

@@ -9,9 +9,10 @@ using System.Linq;
 namespace API_Kylosov.Controllers
 {
     [Route("api/TasksController")]
+    [ApiExplorerSettings(GroupName = "v1")]
     public class TaskContoller : Controller
     {
-/*        [Route("List")]
+        [Route("List")]
         [HttpGet]
         [ProducesResponseType(typeof(List<Tasks>), 200)]
         [ProducesResponseType(500)]
@@ -26,7 +27,7 @@ namespace API_Kylosov.Controllers
             {
                 return StatusCode(500, exp.Message);
             }
-        }*/
+        }
 
         [Route("Item")]
         [HttpGet]
