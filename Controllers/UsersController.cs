@@ -70,14 +70,19 @@ namespace API_Kylosov.Controllers
         [ProducesResponseType(typeof(Users), 200)]
         [ProducesResponseType(403)]
         [ProducesResponseType(500)]
-        public ActionResult RegIn([FromForm] string Login, [FromForm] string Password)
+        public ActionResult RegIn([FromForm] string Login, [FromForm] string Password, [FromForm] string Token)
         {
-            if (Login == null || Password == null)
+            if (Login == null || Password == null || Token == null)
                 return StatusCode(403);
             try
             {
                 Users User = new Users();
                 User.Login = Login;
+
+                if(new UsersContext().Users.Where(x => x.Token == Token).FirstOrDefault() == null)
+                {
+                    return StatusCode(403);
+                }
 
                 StringBuilder builder = new StringBuilder();
                 using (SHA384 sha384Hash = SHA384.Create())
@@ -90,6 +95,7 @@ namespace API_Kylosov.Controllers
                 User.Password = builder.ToString();
 
                 UsersContext usersContext = new UsersContext();
+                User.Token = new string(Enumerable.Repeat("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789", 16).Select(s => s[new Random().Next(s.Length)]).ToArray());
                 usersContext.Users.Add(User);
                 usersContext.SaveChanges();
 
