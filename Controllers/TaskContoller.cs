@@ -66,5 +66,40 @@ namespace API_Kylosov.Controllers
                 return StatusCode(500, exp.Message);
             }
         }
+
+        [Route("Update")]
+        [HttpPut]
+        [ApiExplorerSettings(GroupName = "v3")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(500)]
+        public ActionResult Update([FromForm] Tasks task)
+        {
+            try
+            {
+                TasksContext tasksContext = new TasksContext();
+                var existingTask = tasksContext.Tasks.Find(task.Id);
+                if (existingTask != null)
+                {
+                    existingTask.Name = task.Name;
+                    existingTask.Priority = task.Priority;
+                    existingTask.DateExecute = task.DateExecute;
+                    existingTask.Comment = task.Comment;
+                    existingTask.Done = task.Done;
+
+                    tasksContext.SaveChanges();
+
+                    return StatusCode(200);
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception exp)
+            {
+                return StatusCode(500, exp.Message);
+            }
+        }
+
     }
 }
