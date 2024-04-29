@@ -12,23 +12,6 @@ namespace API_Kylosov.Controllers
     [ApiExplorerSettings(GroupName = "v1")]
     public class CarBrandsController : Controller
     {
-/*        [Route("List")]
-        [HttpGet]
-        [ProducesResponseType(typeof(List<CarBrands>), 200)]
-        [ProducesResponseType(500)]
-        public ActionResult List()
-        {
-            try
-            {
-                IEnumerable<CarBrands> carBrands = new CarBrandsContext().CarBrands;
-                return Json(carBrands);
-            }
-            catch (Exception exp)
-            {
-                return StatusCode(500, exp.Message);
-            }
-        }*/
-
         [Route("Item")]
         [HttpGet]
         [ProducesResponseType(typeof(CarBrands), 200)]
@@ -56,6 +39,58 @@ namespace API_Kylosov.Controllers
             {
                 IEnumerable<CarBrands> carBrands = new CarBrandsContext().CarBrands.OrderBy(x => EF.Property<object>(x, sortBy));
                 return Json(carBrands);
+            }
+            catch (Exception exp)
+            {
+                return StatusCode(500, exp.Message);
+            }
+        }
+
+        [Route("Add")]
+        [HttpPut]
+        [ApiExplorerSettings(GroupName = "v3")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(500)]
+        public ActionResult Add([FromForm] CarBrands CarBrands)
+        {
+            try
+            {
+                CarBrandsContext CarBrandsContext = new CarBrandsContext();
+                CarBrandsContext.CarBrands.Add(CarBrands);
+                CarBrandsContext.SaveChanges();
+
+                return StatusCode(200);
+            }
+            catch (Exception exp)
+            {
+                return StatusCode(500, exp.Message);
+            }
+        }
+
+        [Route("Update")]
+        [HttpPut]
+        [ApiExplorerSettings(GroupName = "v3")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(500)]
+        public ActionResult Update([FromForm] CarBrands CarBrands)
+        {
+            try
+            {
+                CarBrandsContext CarBrandsContext = new CarBrandsContext();
+                var existingCarBrand = CarBrandsContext.CarBrands.Find(CarBrands.BrandName);
+                if (existingCarBrand != null)
+                {
+                    existingCarBrand.CountryOrigin = CarBrands.CountryOrigin;
+                    existingCarBrand.ManufacturerFactory = CarBrands.ManufacturerFactory;
+                    existingCarBrand.Address = CarBrands.Address;
+                    CarBrandsContext.SaveChanges();
+
+                    return StatusCode(200);
+                }
+                else
+                {
+                    return NotFound();
+                }
             }
             catch (Exception exp)
             {

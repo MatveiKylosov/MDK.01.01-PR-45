@@ -46,5 +46,59 @@ namespace API_Kylosov.Controllers
                 return StatusCode(500, exp.Message);
             }
         }
+
+        [Route("Add")]
+        [HttpPut]
+        [ApiExplorerSettings(GroupName = "v3")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(500)]
+        public ActionResult Add([FromForm] Employees employee)
+        {
+            try
+            {
+                EmployeesContext employeesContext = new EmployeesContext();
+                employeesContext.Employees.Add(employee);
+                employeesContext.SaveChanges();
+
+                return StatusCode(200);
+            }
+            catch (Exception exp)
+            {
+                return StatusCode(500, exp.Message);
+            }
+        }
+
+        [Route("Update")]
+        [HttpPut]
+        [ApiExplorerSettings(GroupName = "v3")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(500)]
+        public ActionResult Update([FromForm] Employees employee)
+        {
+            try
+            {
+                EmployeesContext employeesContext = new EmployeesContext();
+                var existingEmployee = employeesContext.Employees.Find(employee.EmployeeID);
+                if (existingEmployee != null)
+                {
+                    existingEmployee.FullName = employee.FullName;
+                    existingEmployee.Experience = employee.Experience;
+                    existingEmployee.Salary = employee.Salary;
+                    existingEmployee.Password = employee.Password;
+
+                    employeesContext.SaveChanges();
+
+                    return StatusCode(200);
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception exp)
+            {
+                return StatusCode(500, exp.Message);
+            }
+        }
     }
 }

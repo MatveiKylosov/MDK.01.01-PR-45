@@ -100,6 +100,5 @@ namespace API_Kylosov.Controllers
                 return StatusCode(500, exp.Message);
             }
         }
-
     }
 }
