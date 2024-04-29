@@ -32,7 +32,11 @@ namespace API_Kylosov.Controllers
                 return StatusCode(403);
             try
             {
-                Users User = new UsersContext().Users.Where(x => x.Login == Login && x.Password == Password).First();
+                Users User = new UsersContext().Users.Where(x => x.Login == Login && x.Password == Password).FirstOrDefault();
+                if (User == null)
+                {
+                    return StatusCode(401);
+                }
                 return Json(User);
             }catch(Exception ex)
             {
