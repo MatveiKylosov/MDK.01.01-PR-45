@@ -28,7 +28,13 @@ namespace API_Kylosov
                             Description = "Полное руководство для использования запросов находящихся в проекте"
                         }
                     );
-
+                    c.SwaggerDoc("v2", new OpenApiInfo
+                        {
+                            Version = "v2",
+                            Title = "Руководство для использования запросов",
+                            Description = "Полное руководство для использования запросов находящихся в проекте"
+                        }
+                    );
                     var filtePath = Path.Combine(System.AppContext.BaseDirectory, "API_Kylosov.xml");
                     c.IncludeXmlComments(filtePath);
                 }
@@ -41,22 +47,22 @@ namespace API_Kylosov
             app.UseStatusCodePages();
             app.UseMvcWithDefaultRoute();
             app.UseSwagger();
-            app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "Запросы GET"); });
+            app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "Запросы GET"); c.SwaggerEndpoint("/swagger/v2/swagger.json", "Запросы POST"); });
 
-/*            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+            /*            if (env.IsDevelopment())
+                        {
+                            app.UseDeveloperExceptionPage();
+                        }
 
-            app.UseRouting();
+                        app.UseRouting();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync("Hello World!");
-                });
-            });*/
+                        app.UseEndpoints(endpoints =>
+                        {
+                            endpoints.MapGet("/", async context =>
+                            {
+                                await context.Response.WriteAsync("Hello World!");
+                            });
+                        });*/
         }
     }
 }
