@@ -4,7 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System;
 using System.Linq;
+using System.Security.Cryptography;
 using Microsoft.EntityFrameworkCore;
+using System.Text;
 
 namespace API_Kylosov.Controllers
 {
@@ -32,7 +34,15 @@ namespace API_Kylosov.Controllers
                 return StatusCode(403);
             try
             {
-                Users User = new UsersContext().Users.Where(x => x.Login == Login && x.Password == Password).FirstOrDefault();
+                StringBuilder builder = new StringBuilder();
+                using (SHA384 sha384Hash = SHA384.Create())
+                {
+                    byte[] bytes = sha384Hash.ComputeHash(Encoding.UTF8.GetBytes(Password));
+                    for (int i = 0; i < bytes.Length; i++)
+                        builder.Append(bytes[i].ToString("x2"));
+                }
+
+                Users User = new UsersContext().Users.Where(x => x.Login == Login && x.Password == builder.ToString()).FirstOrDefault();
                 if (User == null)
                 {
                     return StatusCode(401);
@@ -68,10 +78,21 @@ namespace API_Kylosov.Controllers
             {
                 Users User = new Users();
                 User.Login = Login;
-                User.Password = Password;
+
+                StringBuilder builder = new StringBuilder();
+                using (SHA384 sha384Hash = SHA384.Create())
+                {
+                    byte[] bytes = sha384Hash.ComputeHash(Encoding.UTF8.GetBytes(Password));
+                    for (int i = 0; i < bytes.Length; i++)
+                        builder.Append(bytes[i].ToString("x2"));
+                }
+
+                User.Password = builder.ToString();
+
                 UsersContext usersContext = new UsersContext();
                 usersContext.Users.Add(User);
                 usersContext.SaveChanges();
+
                 return Json(User);
             }
             catch (Exception ex)
