@@ -1,4 +1,6 @@
-﻿namespace API_Kylosov.Model
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace API_Kylosov.Model
 {
     /// <summary>
     /// Автомобили
@@ -8,6 +10,7 @@
         /// <summary>
         /// ID автомобиля
         /// </summary>
+        [Key]
         public int CarID { get; set; }
         /// <summary>
         /// Название

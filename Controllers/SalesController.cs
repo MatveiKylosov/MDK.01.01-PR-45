@@ -4,13 +4,14 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace API_Kylosov.Controllers
 {
     [Route("api/SalesController")]
     public class SalesController : Controller
     {
-        [Route("List")]
+/*        [Route("List")]
         [HttpGet]
         [ProducesResponseType(typeof(List<Sales>), 200)]
         [ProducesResponseType(500)]
@@ -25,7 +26,7 @@ namespace API_Kylosov.Controllers
             {
                 return StatusCode(500, exp.Message);
             }
-        }
+        }*/
 
         [Route("Item")]
         [HttpGet]
@@ -37,6 +38,23 @@ namespace API_Kylosov.Controllers
             {
                 Sales sale = new SalesContext().Sales.Where(x => x.SaleID == saleID).First();
                 return Json(sale);
+            }
+            catch (Exception exp)
+            {
+                return StatusCode(500, exp.Message);
+            }
+        }
+
+        [Route("List")]
+        [HttpGet]
+        [ProducesResponseType(typeof(List<Sales>), 200)]
+        [ProducesResponseType(500)]
+        public ActionResult List(string sortBy = "DateSale")
+        {
+            try
+            {
+                IEnumerable<Sales> sales = new SalesContext().Sales.OrderBy(x => EF.Property<object>(x, sortBy));
+                return Json(sales);
             }
             catch (Exception exp)
             {

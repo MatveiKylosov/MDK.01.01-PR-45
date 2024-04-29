@@ -1,4 +1,6 @@
-﻿namespace API_Kylosov.Model
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace API_Kylosov.Model
 {
     /// <summary>
     /// Марки автомобилей
@@ -8,6 +10,7 @@
         /// <summary>
         /// Название бренда
         /// </summary>
+        [Key]
         public string BrandName { get; set; }
         /// <summary>
         /// Страна происхождения

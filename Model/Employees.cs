@@ -1,4 +1,6 @@
-﻿namespace API_Kylosov.Model
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace API_Kylosov.Model
 {
     /// <summary>
     /// Сотрудники
@@ -8,6 +10,7 @@
         /// <summary>
         /// ID сотрудника
         /// </summary>
+        [Key]
         public int EmployeeID { get; set; }
         /// <summary>
         /// Полное имя

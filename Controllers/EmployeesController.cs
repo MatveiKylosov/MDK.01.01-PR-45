@@ -4,28 +4,13 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 using System;
+using Microsoft.EntityFrameworkCore;
 
 namespace API_Kylosov.Controllers
 {
     [Route("api/EmployeesController")]
     public class EmployeesController : Controller
     {
-        [Route("List")]
-        [HttpGet]
-        [ProducesResponseType(typeof(List<Employees>), 200)]
-        [ProducesResponseType(500)]
-        public ActionResult List()
-        {
-            try
-            {
-                IEnumerable<Employees> employees = new EmployeesContext().Employees;
-                return Json(employees);
-            }
-            catch (Exception exp)
-            {
-                return StatusCode(500, exp.Message);
-            }
-        }
 
         [Route("Item")]
         [HttpGet]
@@ -37,6 +22,23 @@ namespace API_Kylosov.Controllers
             {
                 Employees employee = new EmployeesContext().Employees.Where(x => x.EmployeeID == employeeID).First();
                 return Json(employee);
+            }
+            catch (Exception exp)
+            {
+                return StatusCode(500, exp.Message);
+            }
+        }
+
+        [Route("List")]
+        [HttpGet]
+        [ProducesResponseType(typeof(List<Employees>), 200)]
+        [ProducesResponseType(500)]
+        public ActionResult List(string sortBy = "FullName")
+        {
+            try
+            {
+                IEnumerable<Employees> employees = new EmployeesContext().Employees.OrderBy(x => EF.Property<object>(x, sortBy));
+                return Json(employees);
             }
             catch (Exception exp)
             {

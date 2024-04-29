@@ -4,13 +4,14 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace API_Kylosov.Controllers
 {
     [Route("api/CustomersController")]
     public class CustomersController : Controller
     {
-        [Route("List")]
+/*        [Route("List")]
         [HttpGet]
         [ProducesResponseType(typeof(List<Customers>), 200)]
         [ProducesResponseType(500)]
@@ -25,7 +26,7 @@ namespace API_Kylosov.Controllers
             {
                 return StatusCode(500, exp.Message);
             }
-        }
+        }*/
 
         [Route("Item")]
         [HttpGet]
@@ -37,6 +38,23 @@ namespace API_Kylosov.Controllers
             {
                 Customers customer = new CustomersContext().Customers.Where(x => x.CustomersID == customersID).First();
                 return Json(customer);
+            }
+            catch (Exception exp)
+            {
+                return StatusCode(500, exp.Message);
+            }
+        }
+
+        [Route("List")]
+        [HttpGet]
+        [ProducesResponseType(typeof(List<Customers>), 200)]
+        [ProducesResponseType(500)]
+        public ActionResult List(string sortBy = "FullName")
+        {
+            try
+            {
+                IEnumerable<Customers> customers = new CustomersContext().Customers.OrderBy(x => EF.Property<object>(x, sortBy));
+                return Json(customers);
             }
             catch (Exception exp)
             {

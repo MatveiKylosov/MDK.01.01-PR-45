@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace API_Kylosov.Model
 {
@@ -10,6 +11,7 @@ namespace API_Kylosov.Model
         /// <summary>
         /// Код
         /// </summary>
+        [Key]
         public int Id { get; set; }
         /// <summary>
         /// Наименование
