@@ -12,6 +12,13 @@ namespace API_Kylosov.Controllers
     [ApiExplorerSettings(GroupName = "v1")]
     public class CustomersController : Controller
     {
+        /// <summary>
+        /// Получение клиента по ID
+        /// </summary>
+        /// <param name="customersID">ID клиента</param>
+        /// <returns>Данный метод предназначен для получения клиента по ID</returns>
+        /// <response code = "200">Клиент успешно получен</response>
+        /// <response code = "500">При выполнении запроса возникли ошибки</response>
         [Route("Item")]
         [HttpGet]
         [ProducesResponseType(typeof(Customers), 200)]
@@ -29,6 +36,13 @@ namespace API_Kylosov.Controllers
             }
         }
 
+        /// <summary>
+        /// Получение списка клиентов
+        /// </summary>
+        /// <param name="sortBy">Параметр сортировки</param>
+        /// <returns>Данный метод предназначен для получения списка клиентов</returns>
+        /// <response code = "200">Список клиентов успешно получен</response>
+        /// <response code = "500">При выполнении запроса возникли ошибки</response>
         [Route("List")]
         [HttpGet]
         [ProducesResponseType(typeof(List<Customers>), 200)]
@@ -46,6 +60,13 @@ namespace API_Kylosov.Controllers
             }
         }
 
+        /// <summary>
+        /// Добавление нового клиента
+        /// </summary>
+        /// <param name="customer">Объект клиента</param>
+        /// <returns>Данный метод предназначен для добавления нового клиента</returns>
+        /// <response code = "200">Клиент успешно добавлен</response>
+        /// <response code = "500">При выполнении запроса возникли ошибки</response>
         [Route("Add")]
         [HttpPut]
         [ApiExplorerSettings(GroupName = "v3")]
@@ -67,6 +88,13 @@ namespace API_Kylosov.Controllers
             }
         }
 
+        /// <summary>
+        /// Обновление клиента
+        /// </summary>
+        /// <param name="customer">Объект клиента</param>
+        /// <returns>Данный метод предназначен для обновления клиента</returns>
+        /// <response code = "200">Клиент успешно обновлен</response>
+        /// <response code = "500">При выполнении запроса возникли ошибки</response>
         [Route("Update")]
         [HttpPut]
         [ApiExplorerSettings(GroupName = "v3")]

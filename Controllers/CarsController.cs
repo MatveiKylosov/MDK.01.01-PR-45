@@ -12,6 +12,13 @@ namespace API_Kylosov.Controllers
     [ApiExplorerSettings(GroupName = "v1")]
     public class CarsController : Controller
     {
+        /// <summary>
+        /// Получение автомобиля по ID
+        /// </summary>
+        /// <param name="carID">ID автомобиля</param>
+        /// <returns>Данный метод предназначен для получения автомобиля по ID</returns>
+        /// <response code = "200">Автомобиль успешно получен</response>
+        /// <response code = "500">При выполнении запроса возникли ошибки</response>
         [Route("Item")]
         [HttpGet]
         [ProducesResponseType(typeof(Cars), 200)]
@@ -29,7 +36,13 @@ namespace API_Kylosov.Controllers
             }
         }
 
-
+        /// <summary>
+        /// Получение списка автомобилей
+        /// </summary>
+        /// <param name="sortBy">Параметр сортировки</param>
+        /// <returns>Данный метод предназначен для получения списка автомобилей</returns>
+        /// <response code = "200">Список автомобилей успешно получен</response>
+        /// <response code = "500">При выполнении запроса возникли ошибки</response>
         [Route("List")]
         [HttpGet]
         [ProducesResponseType(typeof(List<Cars>), 200)]
@@ -48,6 +61,13 @@ namespace API_Kylosov.Controllers
         }
 
 
+        /// <summary>
+        /// Добавление нового автомобиля
+        /// </summary>
+        /// <param name="car">Объект автомобиля</param>
+        /// <returns>Данный метод предназначен для добавления нового автомобиля</returns>
+        /// <response code = "200">Автомобиль успешно добавлен</response>
+        /// <response code = "500">При выполнении запроса возникли ошибки</response>
         [Route("Add")]
         [HttpPut]
         [ApiExplorerSettings(GroupName = "v3")]
@@ -69,6 +89,13 @@ namespace API_Kylosov.Controllers
             }
         }
 
+        /// <summary>
+        /// Обновление автомобиля
+        /// </summary>
+        /// <param name="car">Объект автомобиля</param>
+        /// <returns>Данный метод предназначен для обновления автомобиля</returns>
+        /// <response code = "200">Автомобиль успешно обновлен</response>
+        /// <response code = "500">При выполнении запроса возникли ошибки</response>
         [Route("Update")]
         [HttpPut]
         [ApiExplorerSettings(GroupName = "v3")]

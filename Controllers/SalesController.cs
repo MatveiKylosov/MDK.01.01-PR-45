@@ -12,6 +12,13 @@ namespace API_Kylosov.Controllers
     [ApiExplorerSettings(GroupName = "v1")]
     public class SalesController : Controller
     {
+        /// <summary>
+        /// Получение продажи по ID
+        /// </summary>
+        /// <param name="saleID">ID продажи</param>
+        /// <returns>Данный метод предназначен для получения продажи по ID</returns>
+        /// <response code = "200">Продажа успешно получена</response>
+        /// <response code = "500">При выполнении запроса возникли ошибки</response>
         [Route("Item")]
         [HttpGet]
         [ProducesResponseType(typeof(Sales), 200)]
@@ -29,6 +36,13 @@ namespace API_Kylosov.Controllers
             }
         }
 
+        /// <summary>
+        /// Получение списка продаж
+        /// </summary>
+        /// <param name="sortBy">Параметр сортировки</param>
+        /// <returns>Данный метод предназначен для получения списка продаж</returns>
+        /// <response code = "200">Список продаж успешно получен</response>
+        /// <response code = "500">При выполнении запроса возникли ошибки</response>
         [Route("List")]
         [HttpGet]
         [ProducesResponseType(typeof(List<Sales>), 200)]
@@ -46,6 +60,13 @@ namespace API_Kylosov.Controllers
             }
         }
 
+        /// <summary>
+        /// Добавление новой продажи
+        /// </summary>
+        /// <param name="sale">Объект продажи</param>
+        /// <returns>Данный метод предназначен для добавления новой продажи</returns>
+        /// <response code = "200">Продажа успешно добавлена</response>
+        /// <response code = "500">При выполнении запроса возникли ошибки</response>
         [Route("Add")]
         [HttpPut]
         [ApiExplorerSettings(GroupName = "v3")]
@@ -67,6 +88,13 @@ namespace API_Kylosov.Controllers
             }
         }
 
+        /// <summary>
+        /// Обновление продажи
+        /// </summary>
+        /// <param name="sale">Объект продажи</param>
+        /// <returns>Данный метод предназначен для обновления продажи</returns>
+        /// <response code = "200">Продажа успешно обновлена</response>
+        /// <response code = "500">При выполнении запроса возникли ошибки</response>
         [Route("Update")]
         [HttpPut]
         [ApiExplorerSettings(GroupName = "v3")]

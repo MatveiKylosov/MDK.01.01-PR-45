@@ -12,6 +12,12 @@ namespace API_Kylosov.Controllers
     [ApiExplorerSettings(GroupName = "v1")]
     public class TaskContoller : Controller
     {
+        /// <summary>
+        /// Получение списка задач
+        /// </summary>
+        /// <returns>Данный метод предназначен для получения списка задач</returns>
+        /// <response code = "200">Список задач успешно получен</response>
+        /// <response code = "500">При выполнении запроса возникли ошибки</response>
         [Route("List")]
         [HttpGet]
         [ProducesResponseType(typeof(List<Tasks>), 200)]
@@ -29,6 +35,13 @@ namespace API_Kylosov.Controllers
             }
         }
 
+        /// <summary>
+        /// Получение задачи по ID
+        /// </summary>
+        /// <param name="Id">ID задачи</param>
+        /// <returns>Данный метод предназначен для получения задачи по ID</returns>
+        /// <response code = "200">Задача успешно получена</response>
+        /// <response code = "500">При выполнении запроса возникли ошибки</response>
         [Route("Item")]
         [HttpGet]
         [ProducesResponseType(typeof(List<Tasks>), 200)]
@@ -46,6 +59,13 @@ namespace API_Kylosov.Controllers
             }
         }
 
+        /// <summary>
+        /// Добавление новой задачи
+        /// </summary>
+        /// <param name="task">Объект задачи</param>
+        /// <returns>Данный метод предназначен для добавления новой задачи</returns>
+        /// <response code = "200">Задача успешно добавлена</response>
+        /// <response code = "500">При выполнении запроса возникли ошибки</response>
         [Route("Add")]
         [HttpPut]
         [ApiExplorerSettings(GroupName = "v3")]
@@ -67,6 +87,13 @@ namespace API_Kylosov.Controllers
             }
         }
 
+        /// <summary>
+        /// Обновление задачи
+        /// </summary>
+        /// <param name="task">Объект задачи</param>
+        /// <returns>Данный метод предназначен для обновления задачи</returns>
+        /// <response code = "200">Задача успешно обновлена</response>
+        /// <response code = "500">При выполнении запроса возникли ошибки</response>
         [Route("Update")]
         [HttpPut]
         [ApiExplorerSettings(GroupName = "v3")]

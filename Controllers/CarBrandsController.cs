@@ -12,6 +12,13 @@ namespace API_Kylosov.Controllers
     [ApiExplorerSettings(GroupName = "v1")]
     public class CarBrandsController : Controller
     {
+        /// <summary>
+        /// Получение информации о бренде автомобиля по названию
+        /// </summary>
+        /// <param name="brandName">Название бренда</param>
+        /// <returns>Данный метод предназначен для получения информации о бренде автомобиля по названию</returns>
+        /// <response code = "200">Информация о бренде успешно получена</response>
+        /// <response code = "500">При выполнении запроса возникли ошибки</response>
         [Route("Item")]
         [HttpGet]
         [ProducesResponseType(typeof(CarBrands), 200)]
@@ -29,6 +36,13 @@ namespace API_Kylosov.Controllers
             }
         }
 
+        /// <summary>
+        /// Получение списка брендов автомобилей
+        /// </summary>
+        /// <param name="sortBy">Параметр сортировки</param>
+        /// <returns>Данный метод предназначен для получения списка брендов автомобилей</returns>
+        /// <response code = "200">Список брендов успешно получен</response>
+        /// <response code = "500">При выполнении запроса возникли ошибки</response>
         [Route("List")]
         [HttpGet]
         [ProducesResponseType(typeof(List<CarBrands>), 200)]
@@ -46,6 +60,13 @@ namespace API_Kylosov.Controllers
             }
         }
 
+        /// <summary>
+        /// Добавление нового бренда автомобиля
+        /// </summary>
+        /// <param name="CarBrands">Данные о бренде автомобиля</param>
+        /// <returns>Данный метод предназначен для добавления нового бренда автомобиля</returns>
+        /// <response code = "200">Бренд автомобиля успешно добавлен</response>
+        /// <response code = "500">При выполнении запроса возникли ошибки</response>
         [Route("Add")]
         [HttpPut]
         [ApiExplorerSettings(GroupName = "v3")]
@@ -67,6 +88,13 @@ namespace API_Kylosov.Controllers
             }
         }
 
+        /// <summary>
+        /// Обновление информации о бренде автомобиля
+        /// </summary>
+        /// <param name="CarBrands">Обновленные данные о бренде автомобиля</param>
+        /// <returns>Данный метод предназначен для обновления информации о бренде автомобиля</returns>
+        /// <response code = "200">Информация о бренде автомобиля успешно обновлена</response>
+        /// <response code = "500">При выполнении запроса возникли ошибки</response>
         [Route("Update")]
         [HttpPut]
         [ApiExplorerSettings(GroupName = "v3")]

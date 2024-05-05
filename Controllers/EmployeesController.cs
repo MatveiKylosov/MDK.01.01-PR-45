@@ -12,7 +12,13 @@ namespace API_Kylosov.Controllers
     [ApiExplorerSettings(GroupName = "v1")]
     public class EmployeesController : Controller
     {
-
+        /// <summary>
+        /// Получение сотрудника по ID
+        /// </summary>
+        /// <param name="employeeID">ID сотрудника</param>
+        /// <returns>Данный метод предназначен для получения сотрудника по ID</returns>
+        /// <response code = "200">Сотрудник успешно получен</response>
+        /// <response code = "500">При выполнении запроса возникли ошибки</response>
         [Route("Item")]
         [HttpGet]
         [ProducesResponseType(typeof(Employees), 200)]
@@ -30,6 +36,13 @@ namespace API_Kylosov.Controllers
             }
         }
 
+        /// <summary>
+        /// Получение списка сотрудников
+        /// </summary>
+        /// <param name="sortBy">Параметр сортировки</param>
+        /// <returns>Данный метод предназначен для получения списка сотрудников</returns>
+        /// <response code = "200">Список сотрудников успешно получен</response>
+        /// <response code = "500">При выполнении запроса возникли ошибки</response>
         [Route("List")]
         [HttpGet]
         [ProducesResponseType(typeof(List<Employees>), 200)]
@@ -47,6 +60,13 @@ namespace API_Kylosov.Controllers
             }
         }
 
+        /// <summary>
+        /// Добавление нового сотрудника
+        /// </summary>
+        /// <param name="employee">Объект сотрудника</param>
+        /// <returns>Данный метод предназначен для добавления нового сотрудника</returns>
+        /// <response code = "200">Сотрудник успешно добавлен</response>
+        /// <response code = "500">При выполнении запроса возникли ошибки</response>
         [Route("Add")]
         [HttpPut]
         [ApiExplorerSettings(GroupName = "v3")]
@@ -68,6 +88,13 @@ namespace API_Kylosov.Controllers
             }
         }
 
+        /// <summary>
+        /// Обновление сотрудника
+        /// </summary>
+        /// <param name="employee">Объект сотрудника</param>
+        /// <returns>Данный метод предназначен для обновления сотрудника</returns>
+        /// <response code = "200">Сотрудник успешно обновлен</response>
+        /// <response code = "500">При выполнении запроса возникли ошибки</response>
         [Route("Update")]
         [HttpPut]
         [ApiExplorerSettings(GroupName = "v3")]
