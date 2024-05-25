@@ -15,7 +15,7 @@ namespace API_Kylosov.Context
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseMySql("server=127.0.0.1; uid=root;pwd=;database=ISP_21_2_10", new MySqlServerVersion(new Version(8, 0, 11)));
+            optionsBuilder.UseMySql("server=127.0.0.1; uid=ISP_21_2_10;pwd=DSFV988Np#;database=ISP_21_2_10", new MySqlServerVersion(new Version(8, 0, 11)));
         }
     }
 }

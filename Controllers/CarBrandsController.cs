@@ -125,5 +125,64 @@ namespace API_Kylosov.Controllers
                 return StatusCode(500, exp.Message);
             }
         }
+
+        /// <summary>
+        /// Удаление данных о бренде автомобиля по названию
+        /// </summary>
+        /// <param name="brandName">Название бренда для удаления</param>
+        /// <returns>Результат операции удаления</returns>
+        /// <response code="200">Данные о бренде успешно удалены</response>
+        /// <response code="404">Бренд с указанным названием не найден</response>
+        /// <response code="500">Ошибка сервера при выполнении операции удаления</response>
+        [Route("Delete")]
+        [HttpDelete]
+        [ApiExplorerSettings(GroupName = "v4")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
+        public ActionResult DeleteBrand(string brandName)
+        {
+            try
+            {
+                CarBrandsContext carBrandsContext = new CarBrandsContext();
+                var brandToDelete = carBrandsContext.CarBrands.Find(brandName);
+                if (brandToDelete == null)
+                    return NotFound();
+
+                carBrandsContext.CarBrands.Remove(brandToDelete);
+                carBrandsContext.SaveChanges();
+                return StatusCode(200);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500);
+            }
+        }
+
+        /// <summary>
+        /// Полная очистка таблицы с данными о брендах автомобилей
+        /// </summary>
+        /// <returns>Результат операции очистки</returns>
+        /// <response code="200">Таблица успешно очищена</response>
+        /// <response code="500">Ошибка сервера при выполнении операции очистки</response>
+        [Route("Clear")]
+        [HttpDelete]
+        [ApiExplorerSettings(GroupName = "v4")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(500)]
+        public ActionResult ClearBrands()
+        {
+            try
+            {
+                CarBrandsContext carBrandsContext = new CarBrandsContext();
+                carBrandsContext.CarBrands.RemoveRange(carBrandsContext.CarBrands);
+                carBrandsContext.SaveChanges();
+                return StatusCode(200);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500);
+            }
+        }
     }
 }

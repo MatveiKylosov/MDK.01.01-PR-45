@@ -106,5 +106,64 @@ namespace API_Kylosov.Controllers
                 return StatusCode(500);
             }
         }
+
+        /// <summary>
+        /// Удаление пользователя по ID
+        /// </summary>
+        /// <param name="id">ID пользователя для удаления</param>
+        /// <returns>Результат операции удаления</returns>
+        /// <response code="200">Пользователь успешно удален</response>
+        /// <response code="404">Пользователь с указанным ID не найден</response>
+        /// <response code="500">Ошибка сервера при выполнении операции удаления</response>
+        [Route("Delete/{id}")]
+        [HttpDelete]
+        [ApiExplorerSettings(GroupName = "v4")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
+        public ActionResult DeleteUser(int id)
+        {
+            try
+            {
+                UsersContext usersContext = new UsersContext();
+                var userToDelete = usersContext.Users.Find(id);
+                if (userToDelete == null)
+                    return NotFound();
+                
+                usersContext.Users.Remove(userToDelete);
+                usersContext.SaveChanges();
+                return StatusCode(200);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500);
+            }
+        }
+
+        /// <summary>
+        /// Полная очистка таблицы пользователей
+        /// </summary>
+        /// <returns>Результат операции очистки</returns>
+        /// <response code="200">Таблица успешно очищена</response>
+        /// <response code="500">Ошибка сервера при выполнении операции очистки</response>
+        [Route("Clear")]
+        [HttpDelete]
+        [ApiExplorerSettings(GroupName = "v4")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(500)]
+        public ActionResult ClearUsers()
+        {
+            try
+            {
+                UsersContext usersContext = new UsersContext();
+                usersContext.Users.RemoveRange(usersContext.Users);
+                usersContext.SaveChanges();
+                return StatusCode(200);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500);
+            }
+        }
     }
 }
