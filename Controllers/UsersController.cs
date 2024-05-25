@@ -113,15 +113,17 @@ namespace API_Kylosov.Controllers
         /// <param name="id">ID пользователя для удаления</param>
         /// <returns>Результат операции удаления</returns>
         /// <response code="200">Пользователь успешно удален</response>
+        /// <response code="1337">Неправильный токен</response>
         /// <response code="404">Пользователь с указанным ID не найден</response>
         /// <response code="500">Ошибка сервера при выполнении операции удаления</response>
         [Route("Delete/{id}")]
         [HttpDelete]
         [ApiExplorerSettings(GroupName = "v4")]
         [ProducesResponseType(200)]
+        [ProducesResponseType(1337)]
         [ProducesResponseType(404)]
         [ProducesResponseType(500)]
-        public ActionResult DeleteUser(int id)
+        public ActionResult DeleteUser(int id, [FromForm] string Token)
         {
             try
             {
@@ -129,7 +131,10 @@ namespace API_Kylosov.Controllers
                 var userToDelete = usersContext.Users.Find(id);
                 if (userToDelete == null)
                     return NotFound();
-                
+
+                if (userToDelete.Token != Token)
+                    return StatusCode(1337);
+
                 usersContext.Users.Remove(userToDelete);
                 usersContext.SaveChanges();
                 return StatusCode(200);
